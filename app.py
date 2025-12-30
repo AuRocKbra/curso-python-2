@@ -1,17 +1,20 @@
 from modelos.cardapio.bebida import Bebida
-from modelos.cardapio.item_cardapio import ItemCardapio
 from modelos.cardapio.prato import Prato
+from modelos.cardapio.sobremesa import Sobremesa
 from modelos.restaurante import Restaurante
 
 restaurante_praca = Restaurante('praça', 'Gourmet')
-bebida_suco = Bebida('suco', 2.50, 'medio')
-prato_salada = Prato('salada', 3.50, 'Salada com carne')
-item_generico = ItemCardapio('item generico', 1.50)
+bebida_suco = Bebida('suco', 7.50, 'medio')
+prato_salada = Prato('salada', 23.50, 'Salada com carne')
+sobremesa_sorvete = Sobremesa('sorvete avelã',17.30,'sorvete','grande','Sorvete de chocolate de avelã')
 
 def main():
+    prato_salada.aplicar_desconto()
+    bebida_suco.aplicar_desconto()
+    sobremesa_sorvete.aplicar_desconto()
+    restaurante_praca.adicinar_item_cardapio(sobremesa_sorvete)
     restaurante_praca.adicinar_item_cardapio(bebida_suco)
     restaurante_praca.adicinar_item_cardapio(prato_salada)
-    restaurante_praca.adicinar_item_cardapio(item_generico)
     restaurante_praca.listar_cardapio()
 
 

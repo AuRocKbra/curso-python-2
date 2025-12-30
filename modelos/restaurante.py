@@ -1,6 +1,7 @@
 from modelos.avaliacao import Avaliacao
 from modelos.cardapio.prato import Prato
 from modelos.cardapio.bebida import Bebida
+from modelos.cardapio.sobremesa import Sobremesa
 
 
 class Restaurante:
@@ -11,8 +12,7 @@ class Restaurante:
         self._categoria = categoria.upper()
         self._ativo = False
         self._avaliacao = []
-        self._pratos_disponiveis = []
-        self._bebidas_disponiveis = []
+        self._cardapio = []
         Restaurante.restaurantes.append(self)
     
     def __str__(self):
@@ -46,15 +46,15 @@ class Restaurante:
         return media
 
     def adicinar_item_cardapio(self,item):
-        if isinstance(item,Prato):
-            self._pratos_disponiveis.append(item)
-        elif isinstance(item,Bebida):
-            self._bebidas_disponiveis.append(item)
+        if isinstance(item,Prato) or isinstance(item,Bebida) or isinstance(item,Sobremesa):
+            self._cardapio.append(item)
 
     def listar_cardapio(self):
-        print(f'{'=====Bebidas====='}')
-        for bebida in self._bebidas_disponiveis:
-            print(bebida)
-        print(f'{"=====Pratos====="}')
-        for prato in self._pratos_disponiveis:
-            print(prato)
+        print(f'Cardápio do restaurante {self._nome}')
+        for i,item in enumerate(self._cardapio,start=1):
+            if hasattr(item,'_tipo'):
+                print(f'{i}. Nome: {item._nome.ljust(10)} | Preço: R${item._preco:.2f} | Descrição: {item._descricao} | Tamanho: {item._tamanho} | Tipo: {item._tipo}')
+            elif hasattr(item,'_descricao'):
+                print(f'{i}. Nome: {item._nome.ljust(10)} | Preço: R${item._preco:.2f} | Descrição: {item._descricao}')
+            else:
+                print(f'{i}. Nome: {item._nome.ljust(10)} | Preço: R${item._preco:.2f} | Tamanho: {item._tamanho}')
